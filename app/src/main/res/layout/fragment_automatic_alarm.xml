@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="presenter"
+            type="com.cagatay.sleepfresh.AutomaticAlarmPresenter" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/layout_automatic_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AutomaticAlarmFragment">
+
+        <Switch
+            android:id="@+id/switch_auto_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="@dimen/small_padding"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:checked="true"
+            android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onAutoAlarmSwitched(isChecked)}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_auto_alarm"
+                style="@style/CustomTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/automatic_alarm"
+                android:textAlignment="center" />
+
+            <Spinner
+                android:id="@+id/spinner_alarm_periods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_padding"
+                android:entries="@array/alarm_period_entries"
+                android:spinnerMode="dialog"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

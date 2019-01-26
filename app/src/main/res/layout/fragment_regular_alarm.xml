@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="presenter"
+            type="com.cagatay.sleepfresh.RegularAlarmPresenter" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/layout_regular_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:background="@color/primaryDarkColor"
+        tools:context=".RegularAlarmFragment">
+
+        <Switch
+            android:id="@+id/switch_regular_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="@dimen/small_padding"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onRegularAlarmSwitched(isChecked)}" />
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/CustomTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/regular_alarm" />
+
+            <LinearLayout
+                android:id="@+id/layout_day_checkboxes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/medium_padding"
+                android:weightSum="7">
+
+                <CheckBox
+                    android:id="@+id/checkBox_monday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/monday_short" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_tuesday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tuesday_short" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_wednesday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/wednesday_short" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_thursday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/thursday_short" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_friday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/friday_short" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_saturday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/saturday_short" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_sunday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sunday_short" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>
