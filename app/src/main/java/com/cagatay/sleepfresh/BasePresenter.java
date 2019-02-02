@@ -1,10 +1,10 @@
 package com.cagatay.sleepfresh;
 
-public class BasePresenter<T extends BaseView> {
+class BasePresenter<T extends BaseView> {
 
-    T view;
+    final T view;
 
-    public BasePresenter(T view) {
+    BasePresenter(T view) {
         this.view = view;
     }
 }

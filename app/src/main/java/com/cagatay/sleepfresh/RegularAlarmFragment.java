@@ -14,8 +14,8 @@ import com.cagatay.sleepfresh.databinding.FragmentRegularAlarmBinding;
 
 public class RegularAlarmFragment extends Fragment implements RegularAlarmView {
 
-    FragmentRegularAlarmBinding binding;
-    RegularAlarmPresenter presenter;
+    private FragmentRegularAlarmBinding binding;
+    private RegularAlarmPresenter presenter;
 
     public RegularAlarmFragment() {
 

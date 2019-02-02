@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 
 import com.cagatay.sleepfresh.databinding.FragmentAutomaticAlarmBinding;
 
+@SuppressWarnings("ALL")
 public class AutomaticAlarmFragment extends Fragment implements AutomaticAlarmView {
 
-    FragmentAutomaticAlarmBinding binding;
-    AutomaticAlarmPresenter presenter;
+    private FragmentAutomaticAlarmBinding binding;
+    private AutomaticAlarmPresenter presenter;
 
     public AutomaticAlarmFragment() {
 

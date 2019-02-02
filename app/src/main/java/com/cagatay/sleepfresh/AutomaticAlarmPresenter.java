@@ -2,7 +2,7 @@ package com.cagatay.sleepfresh;
 
 public class AutomaticAlarmPresenter extends BasePresenter<AutomaticAlarmView> {
 
-    public AutomaticAlarmPresenter(AutomaticAlarmView view) {
+    AutomaticAlarmPresenter(AutomaticAlarmView view) {
         super(view);
     }
 

@@ -1,5 +1,5 @@
 package com.cagatay.sleepfresh;
 
-public interface BaseView<T extends BasePresenter> {
+interface BaseView<T extends BasePresenter> {
 
 }
