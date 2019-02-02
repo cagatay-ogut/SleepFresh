@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.cagatay.sleepfresh.databinding.FragmentAutomaticAlarmBinding;
 
-@SuppressWarnings("ALL")
 public class AutomaticAlarmFragment extends Fragment implements AutomaticAlarmView {
 
     private FragmentAutomaticAlarmBinding binding;
@@ -36,6 +35,18 @@ public class AutomaticAlarmFragment extends Fragment implements AutomaticAlarmVi
                 R.layout.fragment_automatic_alarm, container, false);
         binding.setPresenter(presenter);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.onResume();
+    }
+
+    @Override
+    public void setSwitchState(boolean isChecked) {
+        binding.switchAutoAlarm.setChecked(isChecked);
     }
 
     @Override

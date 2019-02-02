@@ -39,6 +39,18 @@ public class RegularAlarmFragment extends Fragment implements RegularAlarmView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.onResume();
+    }
+
+    @Override
+    public void setSwitchState(boolean isChecked) {
+        binding.switchRegularAlarm.setChecked(isChecked);
+    }
+
+    @Override
     public void toggleViewState(boolean isEnabled) {
         int backgroundColor = isEnabled ? getResources().getColor(R.color.primaryLightColor) :
                                           getResources().getColor(R.color.primaryDarkColor);
