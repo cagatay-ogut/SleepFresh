@@ -11,13 +11,18 @@ public class AutomaticAlarmPresenter extends BasePresenter<AutomaticAlarmView> {
     }
 
     void onResume() {
-        Boolean isAutoAlarmEnabled = spManager.isAutoAlarmOn();
-        view.setSwitchState(isAutoAlarmEnabled);
+        boolean isAutoAlarmEnabled = spManager.isAutoAlarmOn();
+        view.setSavedSwitchState(isAutoAlarmEnabled);
         view.toggleViewState(isAutoAlarmEnabled);
+        view.setSavedAlarmPeriodSelection(spManager.getAlarmPeriod());
     }
 
     public void onAutoAlarmSwitched(boolean isChecked) {
         spManager.setAutoAlarmPref(isChecked);
         view.toggleViewState(isChecked);
+    }
+
+    public void onAlarmPeriodSelected(int position) {
+        spManager.setAlarmPeriod(position);
     }
 }

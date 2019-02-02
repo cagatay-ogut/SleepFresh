@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.cagatay.sleepfresh.databinding.FragmentRegularAlarmBinding;
 
@@ -46,14 +47,20 @@ public class RegularAlarmFragment extends Fragment implements RegularAlarmView {
     }
 
     @Override
-    public void setSwitchState(boolean isChecked) {
+    public void setSavedSwitchState(boolean isChecked) {
         binding.switchRegularAlarm.setChecked(isChecked);
+    }
+
+    @Override
+    public void setSavedWeekDaySelection(boolean isChecked, int index) {
+        CheckBox weekDay = (CheckBox) binding.layoutDayCheckboxes.getChildAt(index);
+        weekDay.setChecked(isChecked);
     }
 
     @Override
     public void toggleViewState(boolean isEnabled) {
         int backgroundColor = isEnabled ? getResources().getColor(R.color.primaryLightColor) :
-                                          getResources().getColor(R.color.primaryDarkColor);
+                getResources().getColor(R.color.primaryDarkColor);
         binding.layoutRegularAlarm.setBackgroundColor(backgroundColor);
         switchButtonStates(isEnabled);
     }

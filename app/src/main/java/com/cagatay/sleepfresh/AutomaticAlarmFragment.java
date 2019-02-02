@@ -45,8 +45,13 @@ public class AutomaticAlarmFragment extends Fragment implements AutomaticAlarmVi
     }
 
     @Override
-    public void setSwitchState(boolean isChecked) {
+    public void setSavedSwitchState(boolean isChecked) {
         binding.switchAutoAlarm.setChecked(isChecked);
+    }
+
+    @Override
+    public void setSavedAlarmPeriodSelection(int position) {
+        binding.spinnerAlarmPeriods.setSelection(position);
     }
 
     @Override

@@ -45,7 +45,8 @@
                 android:padding="@dimen/small_padding"
                 android:entries="@array/alarm_period_entries"
                 android:spinnerMode="dialog"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:onItemSelected="@{(parentView, selectedItemView, position, id) -> presenter.onAlarmPeriodSelected(position)}"/>
         </LinearLayout>
     </FrameLayout>
 </layout>

@@ -51,49 +51,56 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/monday_short" />
+                    android:text="@string/monday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 0)}" />
 
                 <CheckBox
                     android:id="@+id/checkBox_tuesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/tuesday_short" />
+                    android:text="@string/tuesday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 1)}" />
 
                 <CheckBox
                     android:id="@+id/checkBox_wednesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/wednesday_short" />
+                    android:text="@string/wednesday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 2)}" />
 
                 <CheckBox
                     android:id="@+id/checkBox_thursday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/thursday_short" />
+                    android:text="@string/thursday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 3)}" />
 
                 <CheckBox
                     android:id="@+id/checkBox_friday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/friday_short" />
+                    android:text="@string/friday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 4)}" />
 
                 <CheckBox
                     android:id="@+id/checkBox_saturday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/saturday_short" />
+                    android:text="@string/saturday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 5)}" />
 
                 <CheckBox
                     android:id="@+id/checkBox_sunday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/sunday_short" />
+                    android:text="@string/sunday_short"
+                    android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 6)}" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
