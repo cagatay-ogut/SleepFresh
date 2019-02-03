@@ -102,6 +102,12 @@
                     android:text="@string/sunday_short"
                     android:onCheckedChanged="@{(buttonView, isChecked) -> presenter.onCheckWeekDay(isChecked, 6)}" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/button_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(view) -> presenter.onSetTime()}"/>
         </LinearLayout>
     </FrameLayout>
 </layout>

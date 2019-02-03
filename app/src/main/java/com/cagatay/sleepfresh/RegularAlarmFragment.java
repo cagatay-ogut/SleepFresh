@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,10 +66,23 @@ public class RegularAlarmFragment extends Fragment implements RegularAlarmView {
         switchButtonStates(isEnabled);
     }
 
+    @Override
+    public void showTimePickerFragment(DialogFragment fragment) {
+        if (isAdded()) {
+            fragment.show(requireActivity().getSupportFragmentManager(), "TimePicker");
+        }
+    }
+
+    @Override
+    public void setSavedTimeText(String text) {
+        binding.buttonTimePicker.setText(text);
+    }
+
     private void switchButtonStates(boolean isEnabled) {
         for(int i = 0; i < binding.layoutDayCheckboxes.getChildCount(); i++) {
             View child = binding.layoutDayCheckboxes.getChildAt(i);
-            child.setClickable(isEnabled);
+            child.setEnabled(isEnabled);
         }
+        binding.buttonTimePicker.setEnabled(isEnabled);
     }
 }

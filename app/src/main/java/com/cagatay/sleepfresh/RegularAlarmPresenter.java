@@ -1,8 +1,13 @@
 package com.cagatay.sleepfresh;
 
-import java.util.ArrayList;
+import android.text.format.DateFormat;
 
-public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
+public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> implements TimeSelectionListener {
 
     private final SharedPreferencesManager spManager;
 
@@ -21,6 +26,8 @@ public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> {
         for (int i = 0; i < weekDaysSelection.size(); i++) {
             view.setSavedWeekDaySelection(weekDaysSelection.get(i), i);
         }
+
+        setTimePickerButtonText();
     }
 
     public void onRegularAlarmSwitched(boolean isChecked) {
@@ -30,5 +37,32 @@ public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> {
 
     public void onCheckWeekDay(boolean isChecked, int index) {
         spManager.setWeekDaySelected(isChecked, index);
+    }
+
+    public void onSetTime() {
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+        timePickerFragment.setTimeSelectionListener(this);
+        view.showTimePickerFragment(timePickerFragment);
+    }
+
+    private void setTimePickerButtonText() {
+        int hour = spManager.getAlarmTimeHour();
+        int minute = spManager.getAlarmTimeMinute();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+
+        boolean is24Hour = DateFormat.is24HourFormat(view.getContext());
+        String datePattern = is24Hour ? "HH:mm" : "hh:mm a";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern, Locale.getDefault());
+        String selectedTime = dateFormat.format(calendar.getTime());
+        view.setSavedTimeText(selectedTime);
+    }
+
+    @Override
+    public void onTimeSelected(int hourOfDay, int minute) {
+        spManager.setAlarmTime(hourOfDay, minute);
+        setTimePickerButtonText();
     }
 }

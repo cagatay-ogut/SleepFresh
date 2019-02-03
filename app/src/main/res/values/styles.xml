@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/secondaryColor</item>
         <item name="android:windowBackground">@color/primaryLightColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="buttonStyle">@style/CustomButton</item>
         <item name="checkboxStyle">@style/CustomCheckBox</item>
         <item name="spinnerDropDownItemStyle">@style/CustomSpinnerDropDownItemStyle</item>
     </style>
@@ -25,5 +26,9 @@
 
     <style name="CustomSpinnerDropDownItemStyle" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
         <item name="android:textColor">@color/primaryDarkColor</item>
+    </style>
+
+    <style name="CustomButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:tint">@color/secondaryLightColor</item>
     </style>
 </resources>
