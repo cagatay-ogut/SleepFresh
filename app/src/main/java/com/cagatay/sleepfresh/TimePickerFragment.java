@@ -13,6 +13,7 @@ import android.text.format.DateFormat;
 interface TimeSelectionListener {
     void onTimeSelected(int hourOfDay, int minute);
 }
+
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
     private TimeSelectionListener timeSelectionListener;

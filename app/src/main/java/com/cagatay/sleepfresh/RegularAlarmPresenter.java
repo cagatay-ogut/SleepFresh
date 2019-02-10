@@ -1,5 +1,9 @@
 package com.cagatay.sleepfresh;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 
 import java.text.SimpleDateFormat;
@@ -10,11 +14,21 @@ import java.util.Locale;
 public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> implements TimeSelectionListener {
 
     private final SharedPreferencesManager spManager;
+    private final AlarmManager alarmManager;
 
     RegularAlarmPresenter(RegularAlarmView view) {
         super(view);
 
         spManager = new SharedPreferencesManager(view.getContext());
+        alarmManager = (AlarmManager) view.getContext().getSystemService(Context.ALARM_SERVICE);
+    }
+
+    @Override
+    public void onTimeSelected(int hourOfDay, int minute) {
+        spManager.setAlarmTime(hourOfDay, minute);
+        cancelRegularAlarms();
+        createRegularAlarms();
+        setTimePickerButtonText();
     }
 
     void onResume() {
@@ -33,10 +47,21 @@ public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> imple
     public void onRegularAlarmSwitched(boolean isChecked) {
         spManager.setRegularAlarmPref(isChecked);
         view.toggleViewState(isChecked);
+        if (isChecked) {
+            createRegularAlarms();
+        } else {
+            cancelRegularAlarms();
+        }
     }
 
     public void onCheckWeekDay(boolean isChecked, int index) {
-        spManager.setWeekDaySelected(isChecked, index);
+        int calendarValue = dayIndexToCalendarValue(index);
+        spManager.setWeekDaySelected(isChecked, calendarValue);
+        if (isChecked) {
+            createRegularAlarm(index);
+        } else {
+            cancelRegularAlarm(index);
+        }
     }
 
     public void onSetTime() {
@@ -60,9 +85,55 @@ public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> imple
         view.setSavedTimeText(selectedTime);
     }
 
-    @Override
-    public void onTimeSelected(int hourOfDay, int minute) {
-        spManager.setAlarmTime(hourOfDay, minute);
-        setTimePickerButtonText();
+    private void createRegularAlarms() {
+        ArrayList<Boolean> dayStates = spManager.getWeekDaysStates();
+        for (int i = 0; i < dayStates.size(); i++) {
+            if (dayStates.get(i)) {
+                createRegularAlarm(i);
+            }
+        }
+    }
+
+    private void cancelRegularAlarms() {
+        for (int i = 0; i < 7; i++) {
+            cancelRegularAlarm(i);
+        }
+    }
+
+    private void createRegularAlarm(int day) {
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getAlarmTime(day),
+                AlarmManager.INTERVAL_DAY * 7, getAlarmIntent(day));
+    }
+
+    private void cancelRegularAlarm(int day) {
+        alarmManager.cancel(getAlarmIntent(day));
+    }
+
+    private PendingIntent getAlarmIntent(int day) {
+        Intent intent = new Intent(view.getContext(), AlarmReceiver.class);
+        return PendingIntent.getBroadcast(view.getContext(), day, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+    }
+
+    private long getAlarmTime(int day) {
+        int calendarDay = dayIndexToCalendarValue(day);
+
+        Calendar alarmTime = Calendar.getInstance();
+        alarmTime.set(Calendar.HOUR_OF_DAY, spManager.getAlarmTimeHour());
+        alarmTime.set(Calendar.MINUTE, spManager.getAlarmTimeMinute());
+        alarmTime.set(Calendar.SECOND, 0);
+        alarmTime.set(Calendar.DAY_OF_WEEK, calendarDay);
+
+        if (Calendar.getInstance().getTimeInMillis() > alarmTime.getTimeInMillis()) {
+            alarmTime.add(Calendar.WEEK_OF_YEAR, 1);
+        }
+        return alarmTime.getTimeInMillis();
+    }
+
+    private int dayIndexToCalendarValue(int day) {
+        // Sunday is starting day in Calendar library, and its value is 1
+        // M T W T F S S
+        // 0 1 2 3 4 5 6 -> Our index values
+        // 2 3 4 5 6 7 1 -> Calendar values
+        return ((day + 1) % 7 ) + 1;
     }
 }
