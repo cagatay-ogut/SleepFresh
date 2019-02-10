@@ -16,12 +16,22 @@ interface TimeSelectionListener {
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
+    public static final String BUNDLE_HOUR = "hour";
+    public static final String BUNDLE_MINUTE = "minute";
+
     private TimeSelectionListener timeSelectionListener;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return new TimePickerDialog(getContext(), this, 9, 9, DateFormat.is24HourFormat(getContext()));
+        super.onCreateDialog(savedInstanceState);
+
+        int hour = 0, minute = 0;
+        if (getArguments() != null) {
+            hour = getArguments().getInt(BUNDLE_HOUR);
+            minute = getArguments().getInt(BUNDLE_MINUTE);
+        }
+        return new TimePickerDialog(getContext(), this, hour, minute, DateFormat.is24HourFormat(getContext()));
     }
 
     @Override

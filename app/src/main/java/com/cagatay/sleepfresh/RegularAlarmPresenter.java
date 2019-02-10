@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.format.DateFormat;
 
 import java.text.SimpleDateFormat;
@@ -67,6 +68,12 @@ public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> imple
     public void onSetTime() {
         TimePickerFragment timePickerFragment = new TimePickerFragment();
         timePickerFragment.setTimeSelectionListener(this);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(TimePickerFragment.BUNDLE_HOUR, spManager.getAlarmTimeHour());
+        bundle.putInt(TimePickerFragment.BUNDLE_MINUTE, spManager.getAlarmTimeMinute());
+        timePickerFragment.setArguments(bundle);
+
         view.showTimePickerFragment(timePickerFragment);
     }
 
