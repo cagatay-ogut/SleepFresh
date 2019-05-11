@@ -4,6 +4,8 @@
     <string name="automatic_alarm">Automatic Alarm</string>
     <string name="regular_alarm">Regular Alarm</string>
 
+    <string name="notification_alarm_message">Stop the alarm!</string>
+
     <string name="monday_short">M</string>
     <string name="tuesday_short">T</string>
     <string name="wednesday_short">W</string>
