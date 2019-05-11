@@ -1,9 +1,5 @@
 package com.cagatay.sleepfresh;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 
@@ -15,13 +11,13 @@ import java.util.Locale;
 public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> implements TimeSelectionListener {
 
     private final SharedPreferencesManager spManager;
-    private final AlarmManager alarmManager;
+    private final AlarmController alarmController;
 
     RegularAlarmPresenter(RegularAlarmView view) {
         super(view);
 
         spManager = new SharedPreferencesManager(view.getContext());
-        alarmManager = (AlarmManager) view.getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmController = new AlarmController(view.getContext());
     }
 
     @Override
@@ -108,17 +104,11 @@ public class RegularAlarmPresenter extends BasePresenter<RegularAlarmView> imple
     }
 
     private void createRegularAlarm(int day) {
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getAlarmTime(day),
-                AlarmManager.INTERVAL_DAY * 7, getAlarmIntent(day));
+        alarmController.createRegularAlarm(day, getAlarmTime(day));
     }
 
     private void cancelRegularAlarm(int day) {
-        alarmManager.cancel(getAlarmIntent(day));
-    }
-
-    private PendingIntent getAlarmIntent(int day) {
-        Intent intent = new Intent(view.getContext(), AlarmReceiver.class);
-        return PendingIntent.getBroadcast(view.getContext(), day, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmController.cancelRegularAlarm(day);
     }
 
     private long getAlarmTime(int day) {
